@@ -10,27 +10,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install dependencies
         run: npm install
       - name: Run Playwright tests
-        uses: playwright/github-action@v1
+        uses: playwright/github-action@v4
         with:
           playwright-version: "1.25.0"
           browser: chromium
           headless: true
       - name: Generate Allure report
-        uses: allure/github-action@v1
+        uses: allure/github-action@v4
         with:
           output-directory: ./allure-report
           format: html
       - name: Upload Allure report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: ./allure-report
       - name: Publish Allure report
-        uses: allure/github-action@v1
+        uses: allure/github-action@v4
         with:
           publish: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
