@@ -1,52 +1,36 @@
-name: CI
+name: Playwright Tests with Allure Report
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
+        uses: actions/checkout@v2
       - name: Install dependencies
-        run: npm ci
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
+        run: npm install
+      - name: Run Playwright tests
+        uses: playwright/github-action@v1
         with:
-          distribution: "adopt"
-          java-version: "11"
-      - name: Install Playwright Deps
-        run: npx playwright install --with-deps
-
-      - name: Run tests
-        run: npx playwright test
-
+          playwright-version: "1.25.0"
+          browser: chromium
+          headless: true
       - name: Generate Allure report
-        run: npm run allure:generate
-          npm run allure:report
-
-      - name: Publish Allure report
-        uses: actions/upload-artifact@v3
+        uses: allure/github-action@v1
+        with:
+          output-directory: ./allure-report
+          format: html
+      - name: Upload Allure report
+        uses: actions/upload-artifact@v2
         with:
           name: allure-report
-          path: allure-report
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+          path: ./allure-report
+      - name: Publish Allure report
+        uses: allure/github-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          publish: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
