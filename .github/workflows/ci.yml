@@ -31,7 +31,9 @@ jobs:
           java-version: "11"
       - name: Install Playwright Browsers
         run: npx playwright install
-          npx playwright install-deps
+      - name: Install Playwright Browsers
+        run: npx playwright install-deps
+
       - name: Run tests
         run: npm test
 
