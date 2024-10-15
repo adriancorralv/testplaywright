@@ -5,7 +5,8 @@
   "scripts": {
     "test": "playwright test",
     "allure:generate": "allure generate ./allure-results --clean",
-    "allure:report": "allure open ./allure-report"
+    "allure:report": "allure open ./allure-report",
+    "test:allure": "playwright test --allure"
   },
   "keywords": [],
   "author": "",
