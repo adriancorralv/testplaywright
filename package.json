@@ -2,13 +2,18 @@
   "name": "testng",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "allure:generate": "allure generate ./allure-results --clean",
+    "allure:report": "allure open ./allure-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.47.0",
-    "@types/node": "^22.5.4"
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.5.4",
+    "allure-playwright": "^3.0.5"
   }
 }
