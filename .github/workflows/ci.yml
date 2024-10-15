@@ -29,13 +29,13 @@ jobs:
         with:
           distribution: "adopt"
           java-version: "11"
-
+      - name: Install Playwright Browsers
+        run: npx playwright install
       - name: Run tests
         run: npm test
 
       - name: Generate Allure report
-        run: |
-          npm run allure:generate
+        run: npm run allure:generate
           npm run allure:report
 
       - name: Publish Allure report
