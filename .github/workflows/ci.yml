@@ -17,19 +17,3 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run tests
         run: npx playwright test
-
-      - name: Generate Allure report
-        uses: allure/github-action@v4
-        with:
-          output-directory: ./allure-report
-          format: html
-      - name: Upload Allure report
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: ./allure-report
-      - name: Publish Allure report
-        uses: allure/github-action@v4
-        with:
-          publish: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
