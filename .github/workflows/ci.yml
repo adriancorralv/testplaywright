@@ -29,10 +29,10 @@ jobs:
         with:
           distribution: "adopt"
           java-version: "11"
+      - name: Install Playwright Deps
+        run: npx playwright install-deps
       - name: Install Playwright Browsers
         run: npx playwright install
-      - name: Install Playwright Browsers
-        run: npx playwright install-deps
 
       - name: Run tests
         run: npm test
