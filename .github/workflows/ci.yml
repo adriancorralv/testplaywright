@@ -12,6 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Playwright
-        uses: playwright/setup-playwright@v2
+        uses: playwright/github-action@v2
       - name: Run Playwright tests
         run: npx playwright test
