@@ -14,8 +14,10 @@ test('Busca producto y da clic', async ({ page }) => {
 //  await page.locator('[id=nav-search-submit-button]').click();
   // console.log("Esperando que el campo de búsqueda sea visible...");
   // await page.locator('[id=twotabsearchtextbox]').click();
+  await page.locator('//input[@id="twotabsearchtextbox"]').isVisible();
+  console.log('is visible');
   // console.log("Llenando el campo de búsqueda...");
-  await page.locator('[id=twotabsearchtextbox]').isEnabled();
+  await page.locator('//input[@id="twotabsearchtextbox"]').isEnabled();
 console.log('si esta habilidado');
 await page.waitForTimeout(2000);
  await page.locator('[id=twotabsearchtextbox]').fill('PS5');
