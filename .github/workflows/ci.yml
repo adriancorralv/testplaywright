@@ -19,3 +19,18 @@ jobs:
         run: npx playwright install
       - name: Run tests
         run: npx playwright test
+      - name: Generate Allure report
+        run: npm run allure:generate
+          npm run allure:report
+
+      - name: Publish Allure report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: allure-report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
