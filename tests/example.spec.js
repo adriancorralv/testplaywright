@@ -1,7 +1,9 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test('pruebagoogle', async ({ page })=>{
+test('pruebagoogle',{
+  tag:['@UI']
+} ,async ({ page })=>{
   await page.goto('https://www.google.com.mx/');
   await page.locator('//textarea[@aria-label="Buscar"]').click();
   await page.locator('//textarea[@aria-label="Buscar"]').fill('Playwright');
