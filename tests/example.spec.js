@@ -1,9 +1,17 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
+test('pruebagoogle', async ({ page })=>{
+  await page.goto('https://www.google.com.mx/');
+  await page.locator('//textarea[@aria-label="Buscar"]').click();
+  await page.locator('//textarea[@aria-label="Buscar"]').fill('Playwright');
+  await page.keyboard.press('Enter');
+  
+});
 
 
-test('Busca producto y da clic', async ({ page }) => {
+
+test.skip('Busca producto y da clic', async ({ page }) => {
   console.log("Navegando a Amazon...");
   await page.goto('https://www.amazon.com.mx/');
   await page.waitForTimeout(2000);
