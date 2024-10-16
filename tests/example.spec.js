@@ -8,10 +8,16 @@ test('Busca producto y da clic', async ({ page }) => {
   await page.goto('https://www.amazon.com.mx/');
   await page.waitForTimeout(2000);
   await page.locator('[id=navbar-main]').isVisible();
+  console.log("Encuentra nav...");
+  await page.waitForTimeout(2000);
+
 //  await page.locator('[id=nav-search-submit-button]').click();
   // console.log("Esperando que el campo de búsqueda sea visible...");
   // await page.locator('[id=twotabsearchtextbox]').click();
   // console.log("Llenando el campo de búsqueda...");
+  await page.locator('[id=twotabsearchtextbox]').isEnabled();
+console.log('si esta habilidado');
+await page.waitForTimeout(2000);
  await page.locator('[id=twotabsearchtextbox]').fill('PS5');
  await page.waitForTimeout(2000);
   // console.log("Haciendo clic en el botón de búsqueda...");
