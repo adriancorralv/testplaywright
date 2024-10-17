@@ -25,12 +25,18 @@ jobs:
         run: java -version
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: DEBUG=pw:api npx playwright test --reporter=dot
+
+      - name: Create allure-result directory
+        run: mkdir -p allure/results
+
+      - name: Create allure-report directory
+        run: mkdir -p allure/report
+
+      - name: Run tests
+        run: npm run test
+
       - name: Generate Allure report
-        run: npm run allure:generate
-        env:
-          JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/8.0.292-10/x64
+        run: allure generate allure/results -o allure/report --clean
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v3
