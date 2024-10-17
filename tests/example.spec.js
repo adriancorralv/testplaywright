@@ -14,9 +14,16 @@ test.skip('Prueba login stage' ,async ({ page })=>{
 });
 
 
+test('entra age' ,async ({ page })=>{
 
 
-test('pruebagoogle' ,async ({ page })=>{
+  await page.goto('https://www.cedhsonora.org.mx/Pagina/public/home');
+  await page.locator('//a[contains(text(),"Recomendaciones")]').click();
+
+  await expect(page.url()).toEqual('https://www.cedhsonora.org.mx/Pagina/public/Recomendaciones');  
+});
+
+test.skip('pruebagoogle' ,async ({ page })=>{
   await page.goto('https://www.google.com.mx/');
   await page.locator('//textarea[@aria-label="Buscar"]').click();
   await page.locator('//textarea[@aria-label="Buscar"]').fill('Playwright');
