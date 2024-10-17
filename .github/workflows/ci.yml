@@ -18,10 +18,21 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        run: npx playwright test --project=${{ matrix.browser }}
+      - name: Generate Allure report
+        run: npm run allure:generate
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v3
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+          name: allure-results
+          path: allure/report
+          retention-days: 5
+
+      - name: Deploy report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish_dir: allure/report
+          keep_files: true
