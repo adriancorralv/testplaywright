@@ -21,12 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install OpenVPN
-        run: sudo apt-get install -y openvpn
-
       - name: Run tests
-        run: npx playwright test
-        working-directory: test
+        run: npm run test
+        working-directory: tests
 
       - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.8
