@@ -26,7 +26,7 @@ jobs:
         run: DEBUG=pw:api npx playwright test --reporter=dot
 
       - name: Generate Allure report
-        run: npm run allure:generate
+        run: DEBUG=pw:api npx allure generate allure/result -o allure/report --clean --reporter=dot
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v3
