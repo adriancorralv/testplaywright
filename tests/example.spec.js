@@ -1,15 +1,32 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test('pruebagoogle',{
-  tag:['@UI']
-} ,async ({ page })=>{
+
+
+test.skip('Prueba login stage' ,async ({ page })=>{
+
+
+  await page.goto('http://192.168.35.9:8090/Login');
+  await page.locator('[data-test="correo"]').fill('sistemas@cedhsonora.org.mx');
+  await page.locator('[data-test="password"]').fill('1');
+  await page.locator('[data-test="btnSubmit"]').click();
+  await expect(page.url()).toEqual('http://192.168.35.9:8090/');  
+});
+
+
+
+
+test('pruebagoogle' ,async ({ page })=>{
   await page.goto('https://www.google.com.mx/');
   await page.locator('//textarea[@aria-label="Buscar"]').click();
   await page.locator('//textarea[@aria-label="Buscar"]').fill('Playwright');
   await page.keyboard.press('Enter');
   
 });
+
+
+
+
 
 
 

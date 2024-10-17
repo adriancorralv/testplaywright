@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test",
-    "allure:generate": "allure generate ./allure-results --clean",
-    "allure:report": "allure open ./allure-report",
-    "test:allure": "playwright test --allure"
+    "test": "npx playwright test",
+    "test:headed": "npm run test:clean && npx playwright test --headed",
+    "test:clean": "npx ts-node src/reporting/cleanResults.ts",
+    "allure:generate": "npx allure generate allure/result -o allure/report --clean",
+    "allure:open": "npx allure open allure/report",
+    "allure": "npm run allure:generate && npm run allure:open"
   },
   "keywords": [],
   "author": "",

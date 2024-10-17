@@ -1,27 +1,44 @@
 name: Playwright Tests
+
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  schedule:
+    - cron: "0 23 * * 1-5" # Programa las ejecuciones a las 23:00 UTC de lunes a viernes
+
 jobs:
-  test_ui:
-    timeout-minutes: 60
+  playwright:
+    name: "Playwright Tests"
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: "18"
+
       - name: Install dependencies
         run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: xvfb-run npx playwright test --grep @UI
-      - uses: actions/upload-artifact@v4
-        if: always()
+
+      - name: Install OpenVPN
+        run: sudo apt-get install -y openvpn
+
+      - name: Run tests
+        run: npx playwright test
+        working-directory: test
+
+      - name: Generate Allure report
+        uses: simple-elf/allure-report-action@v1.8
         with:
-          name: playwright-report-ui
-          path: playwright-report/
-          retention-days: 30
+          allure_results: allure/result
+          allure_report: allure/report
+          allure_history: allure/history
+
+      - name: Deploy report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish_dir: ./e2e-tests/allure-history
+          keep_files: true
