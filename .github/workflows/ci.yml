@@ -31,7 +31,14 @@ jobs:
 
       - name: Create allure-report directory
         run: mkdir -p allure/report
-
+      - name: Install Allure Commandline
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.tgz
+          tar -zxvf allure-2.13.8.tgz
+          sudo mv allure-2.13.8 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          echo 'export PATH="/opt/allure/bin:$PATH"' >> $GITHUB_ENV
+          allure --version
       - name: Run tests
         run: npm run test
 
